@@ -1,0 +1,502 @@
+/* --- GLOBAL DESIGN TOKENS --- */
+:root {
+    --bg-primary-system: #0a0e14;
+    --bg-secondary-system: #121824;
+    --text-high-contrast: #ffffff;
+    --text-low-contrast: #a0aec0;
+    --accent-vibrant-orange: #ff9f1c;
+    --border-node-color: #1e293b;
+    --font-primary-stack: 'Plus Jakarta Sans', sans-serif;
+    
+    /* Dynamic Layout Scale Properties */
+    --fluid-typography-hero: clamp(2.2rem, 6vw, 3.8rem);
+    --fluid-typography-section: clamp(1.6rem, 4vw, 2.4rem);
+    --fluid-typography-body: clamp(0.95rem, 2vw, 1.15rem);
+}
+
+/* --- DOCUMENT RESET ENGINE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: var(--font-primary-stack);
+    background-color: var(--bg-primary-system);
+    color: var(--text-high-contrast);
+    text-size-adjust: 100%;
+}
+
+body {
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- EXPLICIT CSS MACRO LAYOUT WRAPPER --- */
+.grid-layout-engine {
+    display: grid;
+    grid-template-columns: 1fr; /* Main axis grid setup */
+    width: 100%;
+}
+
+/* --- POSITION-LAYER OVERLAY FIXED HEADER --- */
+.global-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(10, 14, 20, 0.96);
+    border-bottom: 1px solid var(--border-node-color);
+    /* Slide Instruction Parameter: Layer isolation tracker logic */
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.logo span {
+    color: var(--accent-vibrant-orange);
+}
+
+.menu-toggle-checkbox {
+    display: none;
+}
+
+/* Ergonomic Target Standard Area Box: Specified clear 44px x 44px perimeter */
+.menu-toggle-label {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 44px;
+    height: 44px;
+    padding: 13px 10px;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.menu-toggle-label span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-high-contrast);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navigation-gateways ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--text-low-contrast);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link:focus {
+    color: var(--accent-vibrant-orange);
+    outline: none;
+}
+
+/* --- REUSABLE STRUCTURAL UTILITIES --- */
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(4rem, 10vw, 7rem) 2rem;
+}
+
+.section-title {
+    font-size: var(--fluid-typography-section);
+    font-weight: 700;
+    margin-bottom: 3.5rem;
+    letter-spacing: -0.5px;
+}
+
+.highlight {
+    color: var(--accent-vibrant-orange);
+}
+
+/* --- HERO COMPONENT MODULE --- */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px;
+}
+
+.hero-container {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.track-badge {
+    color: var(--accent-vibrant-orange);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    font-size: var(--fluid-typography-hero);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.8rem;
+    letter-spacing: -1px;
+}
+
+.hero-subtitle {
+    font-size: var(--fluid-typography-body);
+    color: var(--text-low-contrast);
+    margin-bottom: 3rem;
+    max-width: 750px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+}
+
+.btn {
+    padding: 0.9rem 2.2rem;
+    min-height: 44px; /* Touch target strict rule optimization */
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-filled {
+    background-color: var(--accent-vibrant-orange);
+    color: var(--bg-primary-system);
+}
+
+.btn-filled:hover {
+    background-color: #e08a10;
+    transform: translateY(-2px);
+}
+
+.btn-outlined {
+    border: 1px solid var(--border-node-color);
+    color: var(--text-high-contrast);
+}
+
+.btn-outlined:hover {
+    background-color: var(--bg-secondary-system);
+    border-color: var(--text-low-contrast);
+    transform: translateY(-2px);
+}
+
+/* --- TWO-COLUMN GRID SCAFFOLDING TRACK (ABOUT AREA) --- */
+.about-grid-architecture {
+    display: grid;
+    /* Slide Parameter Rule: Explicit column tracks setting using fractional weights */
+    grid-template-columns: 1.5fr 1fr;
+    /* Slide Gap Grid sizing metrics implementation */
+    gap: clamp(2rem, 6vw, 4.5rem);
+    align-items: start;
+}
+
+.about-bio-panel p {
+    color: var(--text-low-contrast);
+    font-size: var(--fluid-typography-body);
+    margin-bottom: 1.6rem;
+}
+
+.profile-meta-card {
+    background-color: var(--bg-secondary-system);
+    border: 1px solid var(--border-node-color);
+    padding: 2.2rem;
+    border-radius: 8px;
+}
+
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(30, 41, 59, 0.6);
+}
+
+.meta-row:last-child {
+    border-bottom: none;
+}
+
+.meta-label {
+    color: var(--text-low-contrast);
+    font-weight: 500;
+}
+
+.meta-value {
+    color: var(--text-high-contrast);
+    font-weight: 600;
+    text-align: right;
+}
+
+/* --- TECHNICAL MODULE AUTO-FILL TRACK WITH BOUNDS --- */
+.frameworks-grid-scaffold {
+    display: grid;
+    /* Slide Track rule mastery: explicit auto-fill tracking configurations via minmax boundaries */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.skill-card {
+    background-color: var(--bg-secondary-system);
+    border: 1px solid var(--border-node-color);
+    padding: 2.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.skill-card:hover {
+    border-color: var(--accent-vibrant-orange);
+    transform: translateY(-3px);
+}
+
+.skill-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.skill-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+}
+
+.skill-card p {
+    color: var(--text-low-contrast);
+    font-size: 0.9rem;
+}
+
+/* --- ASSIGNMENT PRESENTATION AREA GRID SCFFOLDING --- */
+.assignment-matrix-scaffold {
+    width: 100%;
+}
+
+.assignment-focus-card {
+    background-color: var(--bg-secondary-system);
+    border: 1px solid var(--accent-vibrant-orange);
+    padding: clamp(2rem, 6vw, 3.5rem);
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(255, 159, 28, 0.06);
+}
+
+.assignment-tag {
+    color: var(--accent-vibrant-orange);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+.assignment-focus-card h3 {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    margin-bottom: 1.2rem;
+}
+
+.assignment-focus-card p {
+    color: var(--text-low-contrast);
+    font-size: var(--fluid-typography-body);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.evaluation-benchmarks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    padding: 1.2rem;
+    background-color: rgba(10, 14, 20, 0.4);
+    border-radius: 6px;
+    border: 1px solid var(--border-node-color);
+}
+
+.benchmark-item {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #4bb543;
+}
+
+.tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.tech-badges span {
+    background-color: rgba(255, 159, 28, 0.08);
+    color: var(--accent-vibrant-orange);
+    padding: 0.4rem 1.1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+/* --- INTERACTION CHANNELS TRACK STRUCTURE --- */
+.section-subtitle {
+    color: var(--text-low-contrast);
+    margin-top: -2.8rem;
+    margin-bottom: 3.5rem;
+    font-size: 1.05rem;
+}
+
+.channels-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+}
+
+.channel-node-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    background-color: var(--bg-secondary-system);
+    border: 1px solid var(--border-node-color);
+    padding: 1.6rem 2.2rem;
+    border-radius: 8px;
+}
+
+.channel-branding {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.channel-indicator {
+    font-size: 1.8rem;
+}
+
+.channel-branding h4 {
+    font-size: 1.15rem;
+    margin-bottom: 0.15rem;
+}
+
+.channel-branding p {
+    color: var(--text-low-contrast);
+    font-size: 0.9rem;
+}
+
+/* Touch targets interactive buttons setup: Explicit 44px footprint boundaries */
+.channel-action-btn {
+    background-color: transparent;
+    border: 1px solid var(--accent-vibrant-orange);
+    color: var(--accent-vibrant-orange);
+    padding: 0.65rem 1.6rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.channel-action-btn:hover, .channel-action-btn:focus {
+    background-color: var(--accent-vibrant-orange);
+    color: var(--bg-primary-system);
+    outline: none;
+}
+
+/* --- STRUCTURAL FOOTER NODE --- */
+.global-footer {
+    border-top: 1px solid var(--border-node-color);
+    padding: 2.8rem 2rem;
+    text-align: center;
+}
+
+.global-footer p {
+    color: var(--text-low-contrast);
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   PROJECT SCREEN METRIC RESPONSIVE BREAKPOINT INTERFACES 
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .menu-toggle-label {
+        display: flex; /* Popover API indicator initialization */
+    }
+
+    .navigation-gateways {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-secondary-system);
+        border-bottom: 1px solid var(--border-node-color);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+    }
+
+    .navigation-gateways ul {
+        flex-direction: column;
+        padding: 2.2rem;
+        gap: 1.6rem;
+        text-align: center;
+    }
+
+    .menu-toggle-checkbox:checked ~ .navigation-gateways {
+        max-height: 420px;
+    }
+
+    .menu-toggle-checkbox:checked ~ .menu-toggle-label span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-toggle-checkbox:checked ~ .menu-toggle-label span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle-checkbox:checked ~ .menu-toggle-label span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .about-grid-architecture {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-actions, .channel-node-row {
+        flex-direction: column;
+    }
+    
+    .btn, .channel-action-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
